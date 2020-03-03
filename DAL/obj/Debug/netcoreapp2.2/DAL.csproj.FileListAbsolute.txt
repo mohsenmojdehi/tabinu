@@ -1,0 +1,9 @@
+D:\projects\tabinu\DAL\bin\Debug\netcoreapp2.2\DAL.deps.json
+D:\projects\tabinu\DAL\bin\Debug\netcoreapp2.2\DAL.dll
+D:\projects\tabinu\DAL\bin\Debug\netcoreapp2.2\DAL.pdb
+D:\projects\tabinu\DAL\obj\Debug\netcoreapp2.2\DAL.csproj.CoreCompileInputs.cache
+D:\projects\tabinu\DAL\obj\Debug\netcoreapp2.2\DAL.AssemblyInfoInputs.cache
+D:\projects\tabinu\DAL\obj\Debug\netcoreapp2.2\DAL.AssemblyInfo.cs
+D:\projects\tabinu\DAL\obj\Debug\netcoreapp2.2\DAL.dll
+D:\projects\tabinu\DAL\obj\Debug\netcoreapp2.2\DAL.pdb
+D:\projects\tabinu\DAL\obj\Debug\netcoreapp2.2\DAL.csprojAssemblyReference.cache

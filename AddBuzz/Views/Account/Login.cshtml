@@ -1,0 +1,81 @@
+﻿@model AddBuzz.Models.Account.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+}
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form asp-action="Login" class="login100-form validate-form">
+                
+                <div class="login-form-body text-center p-4">
+                    <img src="~/assets/gelr-html/images/logo.png" class="mb-5" alt="Logo">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-gp">
+                        <label asp-for="Username"></label>
+                        <input asp-for="Username" />
+                        <i class="ti-email"></i>
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                    <div class="form-gp">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" type="password" />
+                        <i class="ti-lock"></i>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" asp-for="Captcha"></label>
+                        </div>
+                        <input type="text" asp-for="Captcha" class="form-control" placeholder="جواب سوال روبرو">
+                        <img alt="Captcha" id="imgcpatcha" src="@Url.Action("CaptchaImage", "Captcha", new { prefix="_login" })" class="border" />
+                    </div>
+                    <div class="row mb-4 rmber-area">
+                        <div class="col-6">
+                            <div class="custom-control custom-checkbox primary-checkbox mr-sm-2">
+                                <input asp-for="Remember" type="checkbox" class="custom-control-input" id="Remember">
+                                <label class="custom-control-label" asp-for="Remember">مرا به خاطر بسپار</label>
+                            </div>
+                        </div>
+                        @*<div class="col-6 text-right">
+                <a href="#" class="text-primary">رمز عبور را فراموش کردید؟</a>
+            </div>*@
+                    </div>
+                    <div class="submit-btn-area">
+                        <button id="form_submit" type="submit" class="btn btn-primary">تایید <i class="ti-arrow-right"></i></button>
+                    </div>
+
+                    <div class="form-footer text-center mt-5">
+                        <p class="text-muted">حساب کاربری ندارید؟ <a href="/account/register" class="text-primary">ثبت نام</a></p>
+                    </div>
+                </div>
+            </form>
+            <div class="login100-more" style="background-image: url('/assets/gelr-html/images/bg-01.jpg');">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+    jQuery(document).ready(function ($) {
+            $('.form-gp input').on('focus', function () {
+                $(this).parent('.form-gp').addClass('focused');
+            });
+            $('.form-gp input').on('focusout', function () {
+                if ($(this).val().length === 0) {
+                    $(this).parent('.form-gp').removeClass('focused');
+                }
+        });
+        $(".form-gp input").each(function (index, element) {
+            var $element = $(element);
+            if ($element.val().length !== 0) {
+                console.log(index);
+                $(this).parent('.form-gp').addClass('focused');
+            }
+        });
+        });</script>
+}
