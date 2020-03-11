@@ -4,18 +4,31 @@ using AddBuzz.Models;
 using AddBuzz.CustomeAuthorizeAttribute;
 using AddBuzz.Helpers;
 using Microsoft.AspNetCore.Http;
-
+using AddBuzz.Helpers.CustomeAuthorizeAttribute;
+using BAL.Interfaces;
+using AddBuzz.Models.Account;
+using DAL.Entites;
+using System;
 namespace AddBuzz.Controllers
 {
     public class HomeController : Controller
     {
         private ITokenHelper _tokenHelper;
         private IHttpContextAccessor _httpContextAccessor;
-
-        public HomeController(ITokenHelper tokenHelper, IHttpContextAccessor httpContextAccessor)
+        private readonly IAuthorizeHelper _authorizeHelper;
+        private readonly IAccountService _accountService;
+        private readonly CurrentUserInfo user;
+        public HomeController(ITokenHelper tokenHelper, IHttpContextAccessor httpContextAccessor, IAuthorizeHelper authorizeHelper, IAccountService accountService)
         {
             _httpContextAccessor = httpContextAccessor;
             _tokenHelper = tokenHelper;
+            _authorizeHelper = authorizeHelper;
+            _accountService = accountService;
+            if(_authorizeHelper.IsAuthenticated())
+            {
+                this.user = _authorizeHelper.GetCurrentUser();
+            }
+             
         }
 
         public IActionResult Index()
@@ -27,15 +40,59 @@ namespace AddBuzz.Controllers
         public IActionResult BaseMenu()
         {
             
+            var current_user_account = _accountService.GetAccount(user.Id);
+            if(current_user_account==null)
+            {
+                return RedirectToAction("CompleteAccount");
+            }
             return View();
         }
+
         [HttpGet]
-        public IActionResult AdvertisementService()
+        [AuthorizeFilter()]
+        public IActionResult CompleteAccount()
         {
-
-            return View();
+            CompleteAccountViewModel model = new CompleteAccountViewModel();
+            var current_user_account = _accountService.GetAccount(user.Id);
+            if (current_user_account!=null)
+            {
+                model.Description = current_user_account.Description;
+                model.FullName = current_user_account.FullName;
+                model.OtherContact = current_user_account.OtherContact;
+                model.Phone = current_user_account.Phone;
+                model.ProfilePicture = current_user_account.ProfilePicture;
+            }
+            return View(model);
         }
 
+        [HttpPost]
+        [AuthorizeFilter()]
+        public IActionResult CompleteAccount(CompleteAccountViewModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            Account account = new Account
+            {
+                CreateTime = DateTime.Now,
+                Description=model.Description,
+                Enable=true,
+                FullName=model.FullName,
+                OtherContact=model.OtherContact,
+                Phone=model.Phone,
+                Status="",
+                ProfilePicture=model.ProfilePicture
+            };
+            var res= _accountService.AddAccount(account, user.Id);
+            if (res)
+            {
+                return RedirectToAction("BaseMenu");
+            }
+
+            return View(model);
+        }
+        
         public IActionResult Privacy()
         {
             return View();

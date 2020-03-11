@@ -23,14 +23,18 @@ namespace DAL.Entites
 
         public int? Price { get; set; }
 
-        public string PageId { get; set; }
+        public int PageId { get; set; }
+
+        public int FollowersNumber { get; set; }
+
+        public int MinViewerInDay { get; set; }
 
         [MaxLength(1000)]
         public string Description { get; set; }
 
         public bool? Garanty { get; set; }
        
-        public string Picture { get; set; }
+        //public string Picture { get; set; }
 
         public virtual ICollection<OrderOption> OrderOptions { get; set; }
 

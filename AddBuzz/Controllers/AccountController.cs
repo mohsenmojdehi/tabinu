@@ -95,6 +95,7 @@ namespace AddBuzz.Controllers
             }
         }
 
+
         public IActionResult NotPermitedPage()
         {
             return View();

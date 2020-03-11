@@ -180,8 +180,14 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AccountId");
+
+                    b.Property<int?>("AdvertisementPlanId");
+
                     b.Property<string>("Content")
                         .HasMaxLength(1000);
+
+                    b.Property<int?>("GraphicDesigningPlanId");
 
                     b.Property<int>("ParentId");
 
@@ -190,8 +196,6 @@ namespace DAL.Migrations
                     b.Property<int>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -351,6 +355,8 @@ namespace DAL.Migrations
                         .HasMaxLength(1000);
 
                     b.Property<int>("FollowersNumber");
+
+                    b.Property<bool?>("IsBasePage");
 
                     b.Property<bool?>("IsDeleted");
 
@@ -513,14 +519,6 @@ namespace DAL.Migrations
                 });
 
             modelBuilder.Entity("DAL.Entites.ClientRequest", b =>
-                {
-                    b.HasOne("DAL.Entites.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DAL.Entites.Comment", b =>
                 {
                     b.HasOne("DAL.Entites.User", "User")
                         .WithMany()

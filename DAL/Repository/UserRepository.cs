@@ -17,7 +17,8 @@ namespace DAL.Repository
 
         public IList<User> GetList()
         {
-            return _context.Users.ToList();
+            var res= _context.Users.ToList();
+            return res;
         }
 
         public bool Insert(User Entity)

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DAL.Repository
 {
-   internal class CommentRepository: ICommentRepository
+   public class CommentRepository: ICommentRepository
     {
         private DataBaseContext _context;
 

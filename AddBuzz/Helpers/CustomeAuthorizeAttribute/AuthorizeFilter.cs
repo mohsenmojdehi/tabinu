@@ -35,9 +35,11 @@ namespace AddBuzz.CustomeAuthorizeAttribute
             _tokenHelper= (ITokenHelper)context.HttpContext.RequestServices.GetService(typeof(ITokenHelper));
             _httpContextAccessor = (IHttpContextAccessor)context.HttpContext.RequestServices.GetService(typeof(IHttpContextAccessor));
             string token = _httpContextAccessor.HttpContext.Request.Headers["Authorization"];
+            bool FromWeb = false;
             if (string.IsNullOrWhiteSpace(token))
             {
                 token = _httpContextAccessor.HttpContext.Request.Cookies["_authorization"];
+                FromWeb = true;
             }
 
             if(_roles!=null && _roles.Any())
@@ -47,16 +49,28 @@ namespace AddBuzz.CustomeAuthorizeAttribute
                     if (string.IsNullOrWhiteSpace(token))
                     {
                         context.Result = new StatusCodeResult((int)HttpStatusCode.Unauthorized);
+                        if (FromWeb)
+                        {
+                            context.Result = new RedirectToActionResult("login", "account", new { });
+                        }
                     }
 
                     else if (!_tokenHelper.IsTokenValid(token) || !_roles.Any(x=>x== _tokenHelper.GetUserInfo().Role))
                     {
                         context.Result = new StatusCodeResult((int)HttpStatusCode.Unauthorized);
+                        if (FromWeb)
+                        {
+                            context.Result =new RedirectToActionResult("NotPermitedPage", "account",new {});
+                        }
                     }
                 }
                 else
                 {
                     context.Result = new StatusCodeResult((int)HttpStatusCode.Unauthorized);
+                    if (FromWeb)
+                    {
+                        context.Result = new RedirectToActionResult("login", "account", new { });
+                    }
                 }
             }
             else
@@ -66,16 +80,28 @@ namespace AddBuzz.CustomeAuthorizeAttribute
                     if (string.IsNullOrWhiteSpace(token))
                     {
                         context.Result = new StatusCodeResult((int)HttpStatusCode.Unauthorized);
+                        if (FromWeb)
+                        {
+                            context.Result = new RedirectToActionResult("login", "account", new { });
+                        }
                     }
 
                     else if (!_tokenHelper.IsTokenValid(token))
                     {
                         context.Result = new StatusCodeResult((int)HttpStatusCode.Unauthorized);
+                        if (FromWeb)
+                        {
+                            context.Result = new RedirectToActionResult("login", "account", new { });
+                        }
                     }
                 }
                 else
                 {
                     context.Result = new StatusCodeResult((int)HttpStatusCode.Unauthorized);
+                    if (FromWeb)
+                    {
+                        context.Result = new RedirectToActionResult("login", "account", new { });
+                    }
                 }
             }
 

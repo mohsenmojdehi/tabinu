@@ -95,7 +95,7 @@ namespace AddBuzz.Helpers
                 {
                     Id = int.Parse(userDataDictionary["Id"]),
                     Username = userDataDictionary["UserName"],
-                    Password = userDataDictionary["Email"],
+                    Password = userDataDictionary["Password"],
                     Role = userDataDictionary["Role"]
                 };
             }
@@ -142,6 +142,7 @@ namespace AddBuzz.Helpers
                 .AddClaim("Id", userData.Id)
                 .AddClaim("UserName", userData.Username)
                 .AddClaim("Email", userData.Email)
+                .AddClaim("Password", userData.Password)
                 .AddClaim("Role", userData.Role)
                 .Build();
         }

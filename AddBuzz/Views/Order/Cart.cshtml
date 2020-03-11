@@ -1,17 +1,18 @@
 ﻿@model AddBuzz.Models.Order.CartViewModel
 
-<div class="cart">
-    <div class="dropdown">
-        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
-          سبد سفارش  <i class="fa fa-shopping-cart"></i>
-        </button>
-        <div class="dropdown-menu">
-            <h5 class="dropdown-header">لیست سفارشات </h5>
-            <a class="dropdown-item" href="#">Link 1</a>
-            <a class="dropdown-item" href="#">Link 2</a>
-            <a class="dropdown-item" href="#">Link 3</a>
-            <h5 class="dropdown-header">Dropdown header</h5>
-            <a class="dropdown-item" href="#">Another link</a>
-        </div>
-    </div>
+<button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+    سبد سفارش <span class="fa fa-shopping-cart"></span>
+</button>
+<div class="dropdown-menu text-center">
+    <h4 class="dropdown-header border-bottom">لیست سفارش ها</h4>
+    @{
+        foreach (var item in Model.cartServiceViewModels)
+        {
+            <h5 class="dropdown-header border-bottom">@item.Title : @item.Count => @item.Price </h5>
+        }
+    }
+
+    <h5 class="dropdown-header border-bottom">جمع مبلغ: @Model.Price ریال </h5>
+    <br/>
+    <a class=" btn btn-success border-bottom" href="/Order/finalize">تکمیل خرید</a>
 </div>

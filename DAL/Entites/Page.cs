@@ -21,10 +21,12 @@ namespace DAL.Entites
 
         public int FollowersNumber { get; set; }
 
-        [MaxLength(1000)]
-        public int Description { get;set; }
+        public bool? IsBasePage { get; set; }
 
-        public string LogoUrl { get; set; }
+        [MaxLength(1000)]
+        public string Description { get;set; }
+
+        public string Logo { get; set; }
 
         public int? AreaId { get; set; }
 

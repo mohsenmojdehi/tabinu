@@ -9,10 +9,12 @@ namespace DAL.Entites
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [ForeignKey("User")]
         public int UserId { get; set; }
+        public int? AccountId { get; set; }
 
-        public User User { get; set; }
+        public int? AdvertisementPlanId { get; set; }
+
+        public int? GraphicDesigningPlanId { get; set; }
 
         [MaxLength(1000)]
         public string Content { get; set; }

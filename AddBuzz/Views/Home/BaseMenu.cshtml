@@ -1,17 +1,19 @@
 ﻿@{
     ViewData["Title"] = "BaseMenu";
-    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+    //Layout = "~/Views/Shared/_BasicLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container">
     <div class="row text-left">
         <div class="col-md-4">
         </div>
-        <div class="col-md-4" style="margin-top:15%">
-            <button class="btn btn-lg btn-flat  btn-primary mb-3 btn-block" type="button">من صاحب پیج تبلیغاتی هستم</button>
+        <div class="col-md-4 text-center" style="margin-top:15%">
+            @*<button class="btn btn-lg btn-flat  btn-primary mb-3 btn-block" type="button">من صاحب پیج تبلیغاتی هستم</button>*@
+            <button class="btn btn-danger mb-3 btn-lg btn-block" type="button">من صاحب پیج تبلیغاتی هستم</button>
             <br />
-            <button class="btn btn-lg btn-flat  btn-secondary  mb-3 btn-block" type="button">به دنبال تبلیغ برای کارم هستم</button>
+            <button class="btn btn-info mb-3 btn-lg btn-block" type="button">به دنبال تبلیغ برای کارم هستم</button>
             <br />
-            <button class="btn btn-lg btn-flat  btn-success mb-3 btn-block" type="button">من گرافیست هستم</button>
+            <button class="btn btn-success mb-3 btn-lg btn-block" type="button">من گرافیست هستم</button>
         </div>
         <div class="col-md-4">
         </div>

@@ -15,6 +15,7 @@ using DAL.Repository;
 using AddBuzz.Helpers;
 using AddBuzz.CustomeAuthorizeAttribute;
 using System;
+using AddBuzz.Helpers.CustomeAuthorizeAttribute;
 
 namespace AddBuzz
 {
@@ -51,6 +52,10 @@ namespace AddBuzz
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // add custom service here to project
+            
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAuthorizeHelper, AuthorizeHelper>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<ITokenHelper, TokenHelper>();
@@ -59,7 +64,14 @@ namespace AddBuzz
             services.AddScoped<IGraphicDesigningPlanService, GraphicDesigningPlanService>(); 
             services.AddScoped<IGraphicDesigningPlanRepository, GraphicDesigningPlanRepository>();
             services.AddScoped<IAdvertisementPlanService, AdvertisementPlanService>();
+            services.AddScoped<ICommentService, CommentsService>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IPageRepository, PageRepository>();
+            
+
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
             //string cnstr = Configuration.GetConnectionString("AdBuzzConnections");
             services.AddDbContext<DataBaseContext>(item => item.UseSqlServer(Configuration.GetConnectionString("AdBuzzConnections")));
             //services.AddScoped<AuthorizeFilter>();

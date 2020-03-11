@@ -28,7 +28,7 @@ namespace BAL.Services
 
         public bool AddAccount(Account account, int UserId)
         {
-            account.User = _userService.GetAll().FirstOrDefault(x => x.Id == UserId);
+            account.UserId = UserId;
             return _accountRepository.Insert(account);
         }
 

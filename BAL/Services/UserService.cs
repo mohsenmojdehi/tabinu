@@ -12,15 +12,12 @@ namespace BAL.Services
     {
         private readonly AppSettings _appSettings;
         private readonly IUserRepository _userRepository;
+        private readonly IList<User> _users;
         public UserService(IOptions<AppSettings> appSettings,IUserRepository userRepository)
         {
             _appSettings = appSettings.Value;
             _userRepository = userRepository;
-        }
-
-        private List<User> _users()
-        {
-            return _userRepository.GetList().ToList();
+            _users = _userRepository.GetList();
         }
 
         public bool Register(User user,out string Message)
@@ -37,14 +34,14 @@ namespace BAL.Services
 
         public User Authenticate(string username, string password)
         {
-            var user = _users().SingleOrDefault(x => (x.Username == username || x.Email==username) && x.Password == password);
+            var user = _users.FirstOrDefault(x => (x.Username == username || x.Email==username) && x.Password == password);
             return user;
         }
 
         public IEnumerable<User> GetAll()
         {
             // return users without passwords
-            return _users().Select(x => {
+            return _users.Select(x => {
                 x.Password = null;
                 return x;
             });
